@@ -13,6 +13,10 @@ export const useCursors = (
   const [cursors, setCursorData] = useState<Cursor[]>([]);
 
   useEffect(() => {
+    if (!editor) {
+      return;
+    }
+    
     editor.awareness.on('update', () => {
       const newCursorData = Array.from(editor.awareness.getStates())
         .filter(([clientId]) => clientId !== editor.sharedType.doc?.clientID)
